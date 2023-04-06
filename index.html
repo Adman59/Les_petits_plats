@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les petits plats</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/normalize.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/0959fa6106.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="assets/logo.svg" alt="Logo Les petits plats">
+            <h1>Les petits plats</h1>
+        </a>
+    </header>
+    <main>
+
+        <section class="searchbar">
+            <form id="searchbar__form">
+                <input id="searchbar__form__input" name="searchbar" type="text" placeholder="Rechercher une recette">
+                <i class="fa fa-search"></i>
+            </form>
+        </section>
+
+        <section class="tags">
+            <!--Intégration dans le DOM des éléments choisis via javascript-->
+        </section>
+
+        <section class="filter">
+            <div class="filter__custom ingredient">
+                <span class="filter__custom__span">Ingredients</span>
+                <input type="text" id="ingredient" placeholder="Rechercher un ingrédient">
+                <i class="fas fa-chevron-down" id="ingredient-filter-icon"></i>
+                <!--Intégration dans le DOM de la liste ul/li via javascript-->
+            </div>
+
+            <div class="filter__custom appareils">
+                <span class="filter__custom__span">Appareils</span>
+                <input type="text" id="appareils" placeholder="Rechercher un appareil">
+                <i class="fas fa-chevron-down" id="apareils-filter-icon"></i>
+                <!--Intégration dans le DOM de la liste ul/li via javascript-->
+            </div>
+
+            <div class="filter__custom ustensils">
+                <span class="filter__custom__span">Ustensiles</span>
+                <input type="text" id="ustensils" placeholder="Rechercher un ustensile">
+                <i class="fas fa-chevron-down" id="ustensils-filter-icon"></i>
+                <!--Intégration dans le DOM de la liste ul/li via javascript-->
+            </div>
+        </section>
+
+        <section class="receipts">
+            <ul class="list__receipts">
+                <!--Intégration dans le DOM des li recettes via javascript-->
+            </ul>
+        </section>
+
+    </main>
+
+    <script type="module" src="scripts/index.js"></script>
+
+</body>
+
+</html>
