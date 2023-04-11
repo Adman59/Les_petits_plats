@@ -4,6 +4,7 @@ export class RecipesCard {
     this.time = recipe.time;
     this.ingredients = recipe.ingredients;
     this.description = recipe.description;
+    this.appliance = recipe.appliance;
   }
 
   createIngredientsList() {
@@ -26,6 +27,15 @@ export class RecipesCard {
     })
 
     return listOfIngredients.join("")
+  }
+
+  createListOfIngredients() {
+    const allIngredients = this.ingredients.map((ingredient) => {
+      return `<li class="filter__custom__list__item">${ingredient.ingredient}</li>`
+    });
+
+    return allIngredients.join("");
+
   }
 
   createCard() {

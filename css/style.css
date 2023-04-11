@@ -71,9 +71,7 @@ section {
 /*******************/
 
 .filter {
-    display: grid;
-    grid-template-columns: 1fr;
-    column-gap: 1.25rem;
+    display: flex;
 }
 
 .filter__custom {
@@ -83,9 +81,22 @@ section {
     position: relative;
     color: #fff;
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.filter__custom i {
+.filter__custom:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.filter__custom__search {
+    width: 100%;
+    height: 69px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.filter__custom__search i {
     position: absolute;
     right: 1rem;
     top: 50%;
@@ -104,7 +115,7 @@ section {
     background-color: #ED6454;
 }
 
-.filter__custom__span {
+.filter__custom__search__span {
     position: absolute;
     left: 1rem;
     top: 50%;
@@ -117,6 +128,36 @@ section {
 .filter__custom.appareils input,
 .filter__custom.ustensils input {
     display: none;
+}
+
+.filter__custom__listing {
+    display: none;
+}
+
+.filter__custom.show-dropdown {
+    width: 66%;
+    height: auto;
+}
+
+.filter__custom.show-dropdown .filter__custom__listing {
+    display: flex;
+}
+
+.filter__custom__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 1rem;
+}
+
+.filter__custom__list li {
+    list-style-type: none;
+    padding: 0.5rem;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.filter__custom__list li:hover {
+    background-color: rgba(0, 0, 0, 0.90);
 }
 
 /*******************/
@@ -216,11 +257,11 @@ ul.list__receipts li.card .card__body {
         max-width: 380px;
     }
 
-    .filter {
+    /* .filter {
         display: grid;
         grid-template-columns: 170px 170px 170px;
         column-gap: 1.25rem;
-    }
+    } */
 
     .filter__custom {
         width: 170px;
