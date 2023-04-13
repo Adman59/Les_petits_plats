@@ -84,9 +84,8 @@ section {
     margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s ease-in-out;
 }
-
-
 
 .filter__custom__search {
     width: 100%;

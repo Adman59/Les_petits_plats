@@ -64,13 +64,6 @@ addToggleDropdownListener(".ustensils");
 const inputIngredient = document.querySelector(".filter__custom__list");
 
 
-// const listOfAllIngredients = recipes.map((recipe) => {
-//     const recipeCard = new RecipesCard(recipe)
-//     return recipeCard.createListOfIngredients()
-// })
-
-// inputIngredient.innerHTML = listOfAllIngredients.join("");
-
 // Extraire tous les ingrédients de toutes les recettes
 const allIngredients = recipes.flatMap((recette) => {
     return recette.ingredients.map((ingredient) => {
