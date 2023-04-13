@@ -29,14 +29,14 @@ export class RecipesCard {
     return listOfIngredients.join("")
   }
 
-  createListOfIngredients() {
-    const allIngredients = this.ingredients.map((ingredient) => {
-      return `<li class="filter__custom__list__item">${ingredient.ingredient}</li>`
-    });
+  // createListOfIngredients() {
+  //   const allIngredients = this.ingredients.map((ingredient) => {
+  //     return `<li class="filter__custom__list__item">${ingredient.ingredient}</li>`
+  //   });
 
-    return allIngredients.join("");
+  //   return allIngredients.join("");
 
-  }
+  // }
 
   createCard() {
     return `

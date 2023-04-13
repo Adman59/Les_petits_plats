@@ -72,6 +72,7 @@ section {
 
 .filter {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .filter__custom {
@@ -85,9 +86,7 @@ section {
     flex-direction: column;
 }
 
-.filter__custom:not(:last-child) {
-    margin-right: 1rem;
-}
+
 
 .filter__custom__search {
     width: 100%;
@@ -135,18 +134,33 @@ section {
 }
 
 .filter__custom.show-dropdown {
-    width: 66%;
+    width: 100%;
     height: auto;
 }
 
 .filter__custom.show-dropdown .filter__custom__listing {
     display: flex;
+    top: 65px;
+    width: 100%;
+}
+
+.filter__custom.ingredient.show-dropdown .filter__custom__listing {
+    background-color: #3282F7;
+}
+
+.filter__custom.appareils.show-dropdown .filter__custom__listing {
+    background-color: #68D9A4;
+}
+
+.filter__custom.ustensils.show-dropdown .filter__custom__listing {
+    background-color: #ED6454;
 }
 
 .filter__custom__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 1rem;
+    width: 100%;
 }
 
 .filter__custom__list li {
@@ -157,7 +171,7 @@ section {
 }
 
 .filter__custom__list li:hover {
-    background-color: rgba(0, 0, 0, 0.90);
+    background-color: rgba(0, 0, 0, 0.10);
 }
 
 /*******************/
@@ -257,15 +271,25 @@ ul.list__receipts li.card .card__body {
         max-width: 380px;
     }
 
-    /* .filter {
-        display: grid;
-        grid-template-columns: 170px 170px 170px;
-        column-gap: 1.25rem;
-    } */
+    .filter {
+        flex-wrap: nowrap;
+    }
 
     .filter__custom {
         width: 170px;
         margin-bottom: 0;
+    }
+
+    .filter__custom:not(:last-child) {
+        margin-right: 1rem;
+    }
+
+    .filter__custom.show-dropdown {
+        width: 66%;
+    }
+
+    .filter__custom.show-dropdown .filter__custom__listing {
+        position: absolute;
     }
 }
 
