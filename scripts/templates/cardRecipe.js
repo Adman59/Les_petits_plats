@@ -26,8 +26,10 @@ export class RecipesCard {
       return `<li>${ingredient.ingredient}: <span class="card__body__content__ingredients__quantity">${ingredient.quantity} ${ingredient.unit}</span></li>`
     })
 
+
     return listOfIngredients.join("")
   }
+
 
   createCard() {
     return `
