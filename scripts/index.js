@@ -28,9 +28,12 @@ function getIngredients(recipes) {
             }
         });
     });
+
+    // On retourne la liste des ingrédients dans l'ordre alphabétique
     return ingredients.sort();
 }
 
+// fonction qui va ajouter un li ingrédient dans l'ul du filter__custom correspondant
 function createIngredientsList(ingredients) {
     return ingredients
         .map((ingredient) => {
@@ -39,23 +42,49 @@ function createIngredientsList(ingredients) {
         .join("");
 }
 
+
+//-----------------------------------------------------------------
+
+function getAppliances(recipes) {
+    const appareils = [];
+    recipes.forEach((recipe) => {
+        if (!appareils.includes(recipe.appliance.toLowerCase())) {
+            appareils.push(recipe.appliance.toLowerCase());
+        }
+    });
+
+    // On retourne la liste des appareils dans l'ordre alphabétique
+    return appareils.sort();
+}
+
+// fonction qui va ajouter un li appareil dans l'ul du filter__custom correspondant
+function createAppliancesList(appliance) {
+    return appliance
+        .map((appliance) => {
+            return `<li class="filter__custom__item">${appliance}</li>`;
+        })
+        .join("");
+}
+
 //-----------------------------------------------------------------
 
 
-function getUstensils() {
-    const ustensiles = [];
+function getUstensils(recipes) {
+    const ustensils = [];
 
     recipes.forEach((recipe) => {
         recipe.ustensils.forEach((ustensil) => {
-            if (!ustensiles.includes(ustensil.toLowerCase())) {
-                ustensiles.push(ustensil.toLowerCase());
+            if (!ustensils.includes(ustensil.toLowerCase())) {
+                ustensils.push(ustensil.toLowerCase());
             }
         });
     });
 
-    return ustensiles.sort();
+    // On retourne la liste des ustensiles dans l'ordre alphabétique
+    return ustensils.sort();
 }
 
+// fonction qui va ajouter un li ustensile dans l'ul du filter__custom correspondant
 function createUstensilsList(ustensils) {
     return ustensils
         .map((ustensil) => {
@@ -66,30 +95,53 @@ function createUstensilsList(ustensils) {
 
 
 //----------------------------------------------------------------
-// Fonctionnalité de la barre de recherche principale avec Filter qui met à jour la liste des dropdown :
-
 
 const searchInput = document.querySelector("#searchbar__form__input");
 const ingredientsListContainer = document.querySelector(".ingredient .filter__custom__list");
 const ustensilsListContainer = document.querySelector(".ustensils .filter__custom__list");
-
+const appliancesListContainer = document.querySelector(".appareils .filter__custom__list");
 
 searchInput.addEventListener("input", filterList);
 
-const ingredients = getIngredients(recipes);
-const ingredientsList = createIngredientsList(ingredients);
-ingredientsListContainer.innerHTML = ingredientsList;
+//----------------------------------------------------------------
 
-const ustensils = getUstensils(recipes);
-const ustensilsList = createUstensilsList(ustensils);
-ustensilsListContainer.innerHTML = ustensilsList;
+
+// On ajoute les listes des ingrédients, appareils et ustensiles dans les ul correspondants
+function updateFilters() {
+    const ingredients = getIngredients(recipes);
+    const ingredientsList = createIngredientsList(ingredients);
+    ingredientsListContainer.innerHTML = ingredientsList;
+
+    const appliances = getAppliances(recipes);
+    const appliancesList = createAppliancesList(appliances);
+    appliancesListContainer.innerHTML = appliancesList;
+
+    const ustensils = getUstensils(recipes);
+    let filteredUstensils = ustensils.filter((ustensil) => {
+        return ustensil.toLowerCase().includes(searchInput.value.toLowerCase());
+    });
+    const ustensilsList = createUstensilsList(filteredUstensils);
+    ustensilsListContainer.innerHTML = ustensilsList;
+};
+
+updateFilters();
+
+
+//----------------------------------------------------------------
+
+
+// Fonctionnalité de la barre de recherche principale qui affiche les recettes correspondantes et qui met à jour automtiquement les listes des 3 dropdows (ingrédients, appareils et ustensiles)
 
 function filterList() {
     const filter = searchInput.value.toLowerCase();
     const recipesDomElements = Array.from(document.querySelectorAll(".card"));
+
+    // Recettes triées
     let filteredRecipes = recipes.filter((recipe) =>
         recipe.name.toLowerCase().includes(filter) ||
-        recipe.description.toLowerCase().includes(filter)
+        recipe.description.toLowerCase().includes(filter) ||
+        recipe.appliance.toLowerCase().includes(filter) ||
+        recipe.ustensils.join(", ").toLowerCase().includes(filter)
     );
 
     if (filter.length >= 3) {
@@ -102,13 +154,18 @@ function filterList() {
             }
         });
 
-        const ingredients = getIngredients(filteredRecipes);
-        const ingredientsList = createIngredientsList(ingredients);
+        const updateIngredients = getIngredients(filteredRecipes);
+        const ingredientsList = createIngredientsList(updateIngredients);
         ingredientsListContainer.innerHTML = ingredientsList;
 
-        const ustensils = getUstensils(filteredRecipes);
-        const ustensilsList = createUstensilsList(ustensils);
+        const updateAppliances = getAppliances(filteredRecipes);
+        const appliancesList = createAppliancesList(updateAppliances);
+        appliancesListContainer.innerHTML = appliancesList;
+
+        const updateUstensils = getUstensils(filteredRecipes);
+        const ustensilsList = createUstensilsList(updateUstensils);
         ustensilsListContainer.innerHTML = ustensilsList;
+
 
     } else {
         recipesDomElements.forEach((card) => {
@@ -123,7 +180,6 @@ function filterList() {
         ustensilsListContainer.innerHTML = ustensilsList;
     }
 }
-
 
 
 
