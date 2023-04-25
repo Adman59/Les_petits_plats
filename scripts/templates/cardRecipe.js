@@ -5,6 +5,7 @@ export class RecipesCard {
     this.ingredients = recipe.ingredients;
     this.description = recipe.description;
     this.appliance = recipe.appliance;
+    this.ustensils = recipe.ustensils;
   }
 
   createIngredientsList() {
@@ -50,6 +51,7 @@ export class RecipesCard {
                 ${this.createIngredientsList()}
                 </ul>
                 <p class="card__body__content__description">${this.description}</p>
+                <p class="card__body__content__ustensils">${this.ustensils}</p>
             </div>
           </div>
         </li>

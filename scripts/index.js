@@ -29,6 +29,7 @@ function getIngredients(recipes) {
         });
     });
 
+
     // On retourne la liste des ingrédients dans l'ordre alphabétique
     return ingredients.sort();
 }
@@ -82,6 +83,7 @@ function getUstensils(recipes) {
 
     // On retourne la liste des ustensiles dans l'ordre alphabétique
     return ustensils.sort();
+
 }
 
 // fonction qui va ajouter un li ustensile dans l'ul du filter__custom correspondant
@@ -141,7 +143,8 @@ function filterList() {
         recipe.name.toLowerCase().includes(filter) ||
         recipe.description.toLowerCase().includes(filter) ||
         recipe.appliance.toLowerCase().includes(filter) ||
-        recipe.ustensils.join(", ").toLowerCase().includes(filter)
+        recipe.ustensils.some((ustensil) => ustensil.toLowerCase().includes(filter)) ||
+        recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(filter))
     );
 
     if (filter.length >= 3) {
@@ -188,11 +191,41 @@ function filterList() {
 
 const addToggleDropdownListener = (selector) => {
     const dropdownButton = document.querySelector(selector);
+    const dropdownInputs = document.querySelectorAll(selector + " input");
     dropdownButton.addEventListener("click", () => {
         dropdownButton.classList.toggle("show-dropdown");
+        dropdownInputs.forEach(input => {
+            input.style.display = dropdownButton.classList.contains("show-dropdown") ? "block" : "none";
+        });
+    });
+    dropdownInputs.forEach(input => {
+        input.addEventListener("click", (event) => {
+            event.stopPropagation();
+        });
     });
 };
 
 addToggleDropdownListener(".ingredient");
 addToggleDropdownListener(".appareils");
 addToggleDropdownListener(".ustensils");
+
+
+//----------------------------------------------------------------
+// Moteur de recherche dans le dropdown Ingredients
+
+const inputIngredients = document.querySelector(".filter__custom input");
+
+inputIngredients.addEventListener('input', filterIngredient);
+
+function filterIngredient() {
+    const filterIngredients = inputIngredients.value.toLowerCase();
+
+    // si une valeur rentrée dans le champ input correspond avec un ingrédient dans la liste
+
+
+    // alors tu m'affiches les ingrédients correspondants
+
+    // sinon tu ne m'affiches rien
+
+
+};
