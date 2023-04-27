@@ -131,6 +131,64 @@ updateFilters();
 
 //----------------------------------------------------------------
 
+//-- Fonction de recherche du dropdown ingredient :
+const inputIngredients = document.querySelector(".filter__custom.ingredient #ingredient");
+inputIngredients.addEventListener('input', filterIngredient);
+
+function filterIngredient() {
+    console.log("test")
+    const filterIngredients = inputIngredients.value.toLowerCase();
+    let allLiIngredients = document.querySelectorAll(".filter__custom.ingredient .filter__custom__item");
+    allLiIngredients = Array.from(allLiIngredients); // conversion de la NodeList en tableau
+
+    allLiIngredients.forEach((liIngredient) => {
+        let text = liIngredient.textContent;
+        if (text.toLowerCase().includes(filterIngredients)) {
+            liIngredient.style.display = "";
+        } else {
+            liIngredient.style.display = "none";
+        }
+    });
+}
+
+//-- Fonction de recherche du dropdown appliance :
+const inputAppliances = document.querySelector(".filter__custom.appareils #appareils");
+inputAppliances.addEventListener('input', filterAppliance);
+
+function filterAppliance() {
+    const filterAppliance = inputAppliances.value.toLowerCase();
+    let allLiAppliances = document.querySelectorAll(".filter__custom.appareils .filter__custom__item");
+    allLiAppliances = Array.from(allLiAppliances); // conversion de la NodeList en tableau
+
+    allLiAppliances.forEach((liIngredient) => {
+        let text = liIngredient.textContent;
+        if (text.toLowerCase().includes(filterAppliance)) {
+            liIngredient.style.display = "";
+        } else {
+            liIngredient.style.display = "none";
+        }
+    });
+}
+
+//-- Fonction de recherche du dropdown ustensils :
+const inputUstensils = document.querySelector(".filter__custom.ustensils #ustensils");
+inputUstensils.addEventListener('input', filterUstensil);
+
+function filterUstensil() {
+    const filterUstensil = inputUstensils.value.toLowerCase();
+    let allLiUstensils = document.querySelectorAll(".filter__custom.ustensils .filter__custom__item");
+    allLiUstensils = Array.from(allLiUstensils); // conversion de la NodeList en tableau
+
+    allLiUstensils.forEach((liUstensil) => {
+        let text = liUstensil.textContent;
+        if (text.toLowerCase().includes(filterUstensil)) {
+            liUstensil.style.display = "";
+        } else {
+            liUstensil.style.display = "none";
+        }
+    });
+}
+
 
 // Fonctionnalité de la barre de recherche principale qui affiche les recettes correspondantes et qui met à jour automtiquement les listes des 3 dropdonws (ingrédients, appareils et ustensiles)
 
@@ -150,63 +208,6 @@ function filterList() {
     const updateIngredients = getIngredients(filteredRecipes);
     const ingredientsList = createIngredientsList(updateIngredients);
     ingredientsListContainer.innerHTML = ingredientsList;
-
-    //-- Fonction de recherche du dropdown ingredient :
-    const inputIngredients = document.querySelector(".filter__custom.ingredient #ingredient");
-    inputIngredients.addEventListener('input', filterIngredient);
-
-    function filterIngredient() {
-        const filterIngredients = inputIngredients.value.toLowerCase();
-        let allLiIngredients = document.querySelectorAll(".filter__custom.ingredient .filter__custom__item");
-        allLiIngredients = Array.from(allLiIngredients); // conversion de la NodeList en tableau
-
-        allLiIngredients.forEach((liIngredient) => {
-            let text = liIngredient.textContent;
-            if (text.toLowerCase().includes(filterIngredients)) {
-                liIngredient.style.display = "";
-            } else {
-                liIngredient.style.display = "none";
-            }
-        });
-    }
-
-    //-- Fonction de recherche du dropdown appliance :
-    const inputAppliances = document.querySelector(".filter__custom.appareils #appareils");
-    inputAppliances.addEventListener('input', filterAppliance);
-
-    function filterAppliance() {
-        const filterAppliance = inputAppliances.value.toLowerCase();
-        let allLiAppliances = document.querySelectorAll(".filter__custom.appareils .filter__custom__item");
-        allLiAppliances = Array.from(allLiAppliances); // conversion de la NodeList en tableau
-
-        allLiAppliances.forEach((liIngredient) => {
-            let text = liIngredient.textContent;
-            if (text.toLowerCase().includes(filterAppliance)) {
-                liIngredient.style.display = "";
-            } else {
-                liIngredient.style.display = "none";
-            }
-        });
-    }
-
-    //-- Fonction de recherche du dropdown ustensils :
-    const inputUstensils = document.querySelector(".filter__custom.ustensils #ustensils");
-    inputUstensils.addEventListener('input', filterUstensil);
-
-    function filterUstensil() {
-        const filterUstensil = inputUstensils.value.toLowerCase();
-        let allLiUstensils = document.querySelectorAll(".filter__custom.ustensils .filter__custom__item");
-        allLiUstensils = Array.from(allLiUstensils); // conversion de la NodeList en tableau
-
-        allLiUstensils.forEach((liUstensil) => {
-            let text = liUstensil.textContent;
-            if (text.toLowerCase().includes(filterUstensil)) {
-                liUstensil.style.display = "";
-            } else {
-                liUstensil.style.display = "none";
-            }
-        });
-    }
 
     // Fonctionnalité de la barre de recherche principale à partir de 3 caractères
     if (filter.length >= 3) {
@@ -264,30 +265,10 @@ const addToggleDropdownListener = (selector) => {
     });
 };
 
+
 addToggleDropdownListener(".ingredient");
 addToggleDropdownListener(".appareils");
 addToggleDropdownListener(".ustensils");
-
-
-//----------------------------------------------------------------
-// Moteur de recherche dans le dropdown Ingredients
-
-const inputIngredients = document.querySelector(".filter__custom input");
-
-inputIngredients.addEventListener('input', filterIngredient);
-
-function filterIngredient() {
-    const filterIngredients = inputIngredients.value.toLowerCase();
-
-    // si une valeur rentrée dans le champ input correspond avec un ingrédient dans la liste
-
-
-    // alors tu m'affiches les ingrédients correspondants
-
-    // sinon tu ne m'affiches rien
-
-
-};
 
 
 //----------------------------------------------------------------
