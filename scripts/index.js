@@ -103,6 +103,7 @@ const ingredientsListContainer = document.querySelector(".ingredient .filter__cu
 const ustensilsListContainer = document.querySelector(".ustensils .filter__custom__list");
 const appliancesListContainer = document.querySelector(".appareils .filter__custom__list");
 
+
 searchInput.addEventListener("input", filterList);
 
 //----------------------------------------------------------------
@@ -257,14 +258,28 @@ const addToggleDropdownListener = (selector) => {
         dropdownInputs.forEach(input => {
             input.style.display = dropdownButton.classList.contains("show-dropdown") ? "block" : "none";
         });
+
+        // Ajouter un écouteur d'événement pour fermer la dropdown si l'utilisateur clique n'importe où sur la page en dehors de la dropdown.
+        const closeDropdownOnOutsideClick = (event) => {
+            if (!event.target.closest(selector)) {
+                dropdownButton.classList.remove("show-dropdown");
+                dropdownInputs.forEach(input => {
+                    input.style.display = "none";
+                });
+                document.removeEventListener("click", closeDropdownOnOutsideClick);
+            }
+        };
+        if (dropdownButton.classList.contains("show-dropdown")) {
+            document.addEventListener("click", closeDropdownOnOutsideClick);
+        }
     });
+
     dropdownInputs.forEach(input => {
         input.addEventListener("click", (event) => {
             event.stopPropagation();
         });
     });
 };
-
 
 addToggleDropdownListener(".ingredient");
 addToggleDropdownListener(".appareils");
@@ -314,6 +329,7 @@ function addTag(text, className) {
 ingredientElementList.forEach(element => {
     element.addEventListener("click", () => {
         addTag(element.textContent, "ingredient");
+        filterList();
     });
 });
 
