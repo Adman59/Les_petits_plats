@@ -206,12 +206,9 @@ function filterList() {
         recipe.ingredients.some((ingredient) => ingredient.ingredient.toLowerCase().includes(filter))
     );
 
-    const updateIngredients = getIngredients(filteredRecipes);
-    const ingredientsList = createIngredientsList(updateIngredients);
-    ingredientsListContainer.innerHTML = ingredientsList;
-
     // Fonctionnalité de la barre de recherche principale à partir de 3 caractères
     if (filter.length >= 3) {
+
         recipesDomElements.forEach((card) => {
             let text = card.textContent;
             if (text.toLowerCase().includes(filter)) {
@@ -221,22 +218,98 @@ function filterList() {
             }
         });
 
+        if (filteredRecipes.length === 0) {
+            // Aucune recette ne correspond à la recherche
+            const recipesListContainer = document.querySelector('.receipts__error');
+            recipesListContainer.style.display = "block";
+            recipesListContainer.innerHTML = "<p>Aucune recette ne correspond à votre critère… vous pouvez chercher «tarte aux pommes», «poisson», etc.</p>";
+        } else {
+            // Au moins une recette correspond à la recherche
+            const recipesListContainer = document.querySelector('.receipts__error');
+            recipesListContainer.style.display = "none";
+        }
+
         const updateIngredients = getIngredients(filteredRecipes);
         const ingredientsList = createIngredientsList(updateIngredients);
         ingredientsListContainer.innerHTML = ingredientsList;
+
+
+        // Ajout d'un événement de clic sur chaque élément de la liste d'ingrédients
+        const ingredientElementList = document.querySelectorAll('.ingredient .filter__custom__item');
+
+        console.log(ingredientElementList);
+
+        for (let i = 0; i < ingredientElementList.length; i++) {
+            const element = ingredientElementList[i];
+            element.addEventListener("click", () => {
+                addTag(element.textContent, "ingredient");
+            });
+        }
+
+        //-----------------------------------------------------------------//
 
         const updateAppliances = getAppliances(filteredRecipes);
         const appliancesList = createAppliancesList(updateAppliances);
         appliancesListContainer.innerHTML = appliancesList;
 
+        // Ajout d'un événement de clic sur chaque élément de la liste d'appareils
+        const applianceElementList = document.querySelectorAll('.appareils .filter__custom__item');
+
+        for (let i = 0; i < applianceElementList.length; i++) {
+            const element = applianceElementList[i];
+            element.addEventListener("click", () => {
+                addTag(element.textContent, "appareils");
+            });
+        }
+
+
+        //-----------------------------------------------------------------//
+
+
         const updateUstensils = getUstensils(filteredRecipes);
         const ustensilsList = createUstensilsList(updateUstensils);
         ustensilsListContainer.innerHTML = ustensilsList;
+
+
+        // Ajout d'un événement de clic sur chaque élément de la liste d'ustensiles
+        const ustensilsElementList = document.querySelectorAll('.ustensils .filter__custom__item');
+
+        for (let i = 0; i < ustensilsElementList.length; i++) {
+            const element = ustensilsElementList[i];
+            element.addEventListener("click", () => {
+                addTag(element.textContent, "ustensils");
+            });
+        }
+
+    } else if (filteredRecipes.length === 0) {
+
+        recipesDomElements.forEach((card) => {
+            card.style.display = "";
+        });
+
+        const recipesListContainer = document.querySelector('.receipts__error');
+        // Afficher le message "Aucune recette trouvée"
+        recipesListContainer.style.display = "block";
+        recipesListContainer.innerHTML = "<p>Aucune recette ne correspond à votre critère… vous pouvez chercher «tarte aux pommes», «poisson», etc.</p>";
+
+        console.log("erreur");
+        return;
 
     } else {
         recipesDomElements.forEach((card) => {
             card.style.display = "";
         });
+
+        ingredientElementList.forEach(element => {
+            element.addEventListener("click", () => {
+                addTag(element.textContent, "ingredient");
+            });
+        });
+
+        // Masquer le message d'erreur
+        const recipesListContainer = document.querySelector('.receipts__error');
+        recipesListContainer.style.display = "none";
+
         const ingredients = getIngredients(recipes);
         const ingredientsList = createIngredientsList(ingredients);
         ingredientsListContainer.innerHTML = ingredientsList;
@@ -289,14 +362,20 @@ addToggleDropdownListener(".ustensils");
 //----------------------------------------------------------------
 // Ajout du tag dans la section tags lors du clic sur un ingrédient/appareil/ustensile
 
-const ingredientElementList = document.querySelectorAll('.ingredient .filter__custom__item');
-const applianceElementList = document.querySelectorAll('.appareils .filter__custom__item');
-const ustensilsElementList = document.querySelectorAll('.ustensils .filter__custom__item');
 const listOfTags = document.querySelector('.tags__list');
 
 //------------------------------------------------------------------
 
 function addTag(text, className) {
+    // Vérifie si le tag existe déjà dans la liste
+    const existingTag = [...listOfTags.querySelectorAll('li')].find(
+        (tag) => tag.textContent.trim() === text.trim()
+    );
+
+    if (existingTag) {
+        return; // Arrête la fonction si le tag existe déjà
+    }
+
     // Création de l'élément li
     const tag = document.createElement('li');
     tag.classList.add('tags__list__item', className);
@@ -321,15 +400,55 @@ function addTag(text, className) {
 
     // Ajout du li dans la section tags
     listOfTags.appendChild(tag);
+
+    // Récupération des éléments du DOM
+    const cards = document.querySelectorAll('.card');
+    const tagSpans = document.querySelectorAll('.tags__list__item span');
+
+    // Création de l'objet contenant les tags
+    const tags = Array.from(tagSpans).map(span => span.textContent.toLowerCase());
+
+    // Fonction qui vérifie si une card doit être affichée
+    function shouldShowCard(card) {
+        const cardText = card.textContent.toLowerCase();
+        return tags.every(tag => cardText.includes(tag));
+    }
+
+    // Affichage initial des cards
+    cards.forEach(card => {
+        if (shouldShowCard(card)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    // Écouteur d'événement pour mettre à jour l'affichage en fonction des tags sélectionnés
+    tagSpans.forEach(tag => {
+        tag.addEventListener('click', () => {
+            tags.splice(tags.indexOf(tag.textContent.toLowerCase()), 1);
+            cards.forEach(card => {
+                if (shouldShowCard(card)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
 }
 
 //------------------------------------------------------------------
+
+const ingredientElementList = document.querySelectorAll('.ingredient .filter__custom__item');
+const applianceElementList = document.querySelectorAll('.appareils .filter__custom__item');
+const ustensilsElementList = document.querySelectorAll('.ustensils .filter__custom__item');
 
 // Ajout d'un événement de clic sur chaque élément de la liste d'ingrédients
 ingredientElementList.forEach(element => {
     element.addEventListener("click", () => {
         addTag(element.textContent, "ingredient");
-        filterList();
     });
 });
 
