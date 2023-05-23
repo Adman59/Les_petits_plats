@@ -1,6 +1,7 @@
 class Filter {
     constructor(list) {
         this.list = list;
+        this.name = name;
         // une fois que touts les ingrédients sont trouvés, on en fait un tableau
         this.all = []
         // tableau avec tous les tags selectionnés
@@ -16,7 +17,6 @@ class Filter {
         this.buildSelection();
         this.collect(this.list.all);
         this.display();
-        // this.showSelection();
         this.openDropdown();
         await this.display();
         await this.listenForTagSelection();
@@ -124,7 +124,7 @@ class Filter {
     }
 
     listenForTagUnselect() {
-        const removeTags = document.querySelectorAll(".tags__list__item");
+        const removeTags = document.querySelectorAll(".tags__list__item__button");
 
         removeTags.forEach(el => {
             el.addEventListener("click", () => {

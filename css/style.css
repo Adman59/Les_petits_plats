@@ -74,6 +74,7 @@ section {
 }
 
 .tags__list__item {
+    display: flex;
     list-style-type: none;
 }
 
