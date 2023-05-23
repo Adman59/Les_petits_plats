@@ -74,10 +74,13 @@ section {
 }
 
 .tags__list__item {
+    list-style-type: none;
+}
+
+.tags__list__item__button {
     display: flex;
     align-items: center;
     position: relative;
-    list-style-type: none;
     background-color: #3282F7;
     color: #fff;
     font-size: 0.875rem;
@@ -87,19 +90,19 @@ section {
     margin: 0.5rem 0.5rem 0.5rem 0;
 }
 
-.tags__list__item.ingredients {
+.tags__list__item__button.ingredients {
     background-color: #3282F7;
 }
 
-.tags__list__item.appareils {
+.tags__list__item__button.appareils {
     background-color: #68D9A4;
 }
 
-.tags__list__item.ustensils {
+.tags__list__item__button.ustensils {
     background-color: #D04F4F;
 }
 
-.tags__list__item .tags__list__item__delete {
+.tags__list__item__button .tags__list__item__delete {
     background: none;
     font-weight: 700;
     font-size: 1.25rem;
@@ -115,7 +118,7 @@ section {
 /** FILTER **/
 /*******************/
 
-.filter {
+#filters {
     display: flex;
     flex-wrap: wrap;
 }
@@ -146,7 +149,7 @@ section {
     transform: translate(0%, -50%);
 }
 
-.filter__custom.ingredient {
+.filter__custom.ingredients {
     background-color: #3282F7;
 }
 
@@ -167,10 +170,14 @@ section {
     font-weight: 700;
 }
 
-.filter__custom.ingredient input,
+.filter__custom .hide-search {
+    display: none;
+}
+
+.filter__custom.ingredients input,
 .filter__custom.appareils input,
 .filter__custom.ustensils input {
-    display: none;
+    /* display: none; */
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -184,7 +191,7 @@ section {
     padding: 0 1rem;
 }
 
-.filter__custom.ingredient input {
+.filter__custom.ingredients input {
     background-color: #3282F7;
 }
 
@@ -221,7 +228,7 @@ section {
     width: 100%;
 }
 
-.filter__custom.ingredient.show-dropdown .filter__custom__listing {
+.filter__custom.ingredients.show-dropdown .filter__custom__listing {
     background-color: #3282F7;
 }
 
@@ -234,7 +241,7 @@ section {
 }
 
 .filter__custom__list {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(3, 1fr);
     padding: 0 1rem;
     width: 100%;
@@ -249,6 +256,10 @@ section {
 
 .filter__custom__list li:hover {
     background-color: rgba(0, 0, 0, 0.10);
+}
+
+.filter__custom__list li.hide {
+    display: none;
 }
 
 /*******************/
@@ -361,7 +372,7 @@ ul.list__receipts li.card .card__body {
         max-width: 380px;
     }
 
-    .filter {
+    #filters {
         flex-wrap: nowrap;
     }
 

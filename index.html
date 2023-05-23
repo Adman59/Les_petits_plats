@@ -28,60 +28,29 @@
 
         <section class="searchbar">
             <form id="searchbar__form">
-                <input id="searchbar__form__input" name="searchbar" type="text" placeholder="Rechercher une recette">
+                <input id="searchbar__form__input" name="searchbar" type="search" placeholder="Rechercher une recette">
                 <i class="fa fa-search"></i>
             </form>
         </section>
 
         <section class="tags">
-            <ul class="tags__list">
+            <ul class="tags__list" id="tags__list">
 
             </ul>
         </section>
 
         <section class="filter">
-            <div class="filter__custom ingredient">
-                <div class="filter__custom__search">
-                    <span class="filter__custom__search__span">Ingredients</span>
-                    <input type="text" id="ingredient" placeholder="Rechercher un ingrédient...">
-                    <i class="fas fa-chevron-down" id="ingredient-filter-icon"></i>
-                </div>
+            <div id="filters">
 
-                <div class="filter__custom__listing">
-                    <ul class="filter__custom__list"></ul>
-                </div>
-            </div>
-
-            <div class="filter__custom appareils">
-                <div class="filter__custom__search">
-                    <span class="filter__custom__search__span">Appareils</span>
-                    <input type="text" id="appareils" placeholder="Rechercher un appareil...">
-                    <i class="fas fa-chevron-down" id="apareils-filter-icon"></i>
-                </div>
-
-                <div class="filter__custom__listing">
-                    <ul class="filter__custom__list"></ul>
-                </div>
-            </div>
-
-            <div class="filter__custom ustensils">
-                <div class="filter__custom__search">
-                    <span class="filter__custom__search__span">Ustensiles</span>
-                    <input type="text" id="ustensils" placeholder="Rechercher un ustensile...">
-                    <i class="fas fa-chevron-down" id="ustensils-filter-icon"></i>
-                </div>
-
-                <div class="filter__custom__listing">
-                    <ul class="filter__custom__list"></ul>
-                </div>
             </div>
         </section>
 
-        <section class="receipts">
-            <ul class="list__receipts">
+        <section class="receipts" id="receipts">
+            <ul class="list__receipts" id="list__receipts">
                 <!--Intégration dans le DOM des li recettes via javascript-->
             </ul>
-            <div class="receipts__error"></div>
+            <div class="receipts__error" id="receipts__error">Aucune recette ne correspond à votre critère… vous pouvez
+                chercher «tarte aux pommes», «poisson», etc.</div>
         </section>
 
     </main>
