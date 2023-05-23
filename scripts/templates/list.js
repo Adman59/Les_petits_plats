@@ -7,6 +7,8 @@ class list {
         this.filters = [];
     }
 
+    // Pour chaque recette cette fonction créée un nouvel objet "recipe" et ajoute cet objet dans la liste "all"
+
     hydrate(recipes) {
         recipes.forEach(item => {
             let recipe = new Recipe(item);
@@ -16,12 +18,14 @@ class list {
         this.filtered = this.all;
     }
 
+    // Permet d'injecter les recettes dans la section list__receipts grace a la fonction createRecipeCard dans le fichier recipe.js
+
     display(recipes) {
         document.querySelector("#receipts__error").style.display = "none";
 
         let html = '';
         recipes.forEach(recipe => {
-            html += recipe.render();
+            html += recipe.createRecipeCard();
         })
 
         document.getElementById("list__receipts").innerHTML = html;
@@ -62,12 +66,14 @@ class list {
         })
     }
 
+    // Applique la fonction filter lorsque l'on effectue une recherche dans l'input principal
     listenForSearch() {
         document.getElementById('searchbar__form__input').addEventListener('input', (e) => {
             this.filter();
         })
     }
 
+    // Vérifie si le nom de la recette, la description ou un ingrédient est contenu dans la recherche
     search(search) {
         return this.filtered.filter((recipe) => {
             return (
@@ -79,6 +85,7 @@ class list {
 
     }
 
+    // Méthode alternative pour la recherche principale avec la boucle for pour itérer sur les recettes filtrées
     searchAlt(search) {
 
         let final = [];

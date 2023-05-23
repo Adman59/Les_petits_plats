@@ -12,7 +12,7 @@ class Recipe {
 
     }
 
-    render() {
+    createRecipeCard() {
         return `
         <li class="card" id="${this.id}">
             <div class="card__image">

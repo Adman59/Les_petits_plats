@@ -3,7 +3,7 @@ class Filter {
         this.list = list;
         this.name = name;
         // une fois que touts les ingrédients sont trouvés, on en fait un tableau
-        this.all = []
+        this.all = [];
         // tableau avec tous les tags selectionnés
         this.selection = [];
         // tableau avec tous les tags filtrés
