@@ -21,20 +21,19 @@ class list {
 
         let html = '';
         recipes.forEach(recipe => {
-            html += recipe.render()
+            html += recipe.render();
         })
 
-        document.getElementById("list__receipts").innerHTML = html
+        document.getElementById("list__receipts").innerHTML = html;
 
         if (recipes.length === 0) {
-            console.log('test')
             document.querySelector("#receipts__error").style.display = "block";
         }
     }
 
     addFilter(filter) {
         this.filters.push(filter);
-        filter.build()
+        filter.build();
     }
 
     filter() {
@@ -42,17 +41,15 @@ class list {
         let search = document.getElementById('searchbar__form__input').value.toLowerCase();
 
         if (search.length > 3) {
-            console.group(search)
-            console.time()
-            this.filtered = this.searchAlt(search)
-            console.timeEnd()
-            console.groupEnd(search)
+            console.group(search);
+            console.time();
+            this.filtered = this.searchAlt(search);
+            console.timeEnd();
+            console.groupEnd(search);
         }
 
         this.filters.forEach(filter => {
-            // console.log(filter);
             this.filtered = filter.filter(this.filtered);
-            // console.log(filter.name ,this.filtered);
         })
         this.display(this.filtered);
 
@@ -67,8 +64,7 @@ class list {
 
     listenForSearch() {
         document.getElementById('searchbar__form__input').addEventListener('input', (e) => {
-            this.filter()
-
+            this.filter();
         })
     }
 
@@ -95,7 +91,6 @@ class list {
             }
         }
 
-        // console.log(final);
         return final;
     }
 
