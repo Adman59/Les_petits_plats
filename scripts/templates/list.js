@@ -85,26 +85,6 @@ class list {
 
     }
 
-
-    match(recipe, search) {
-        if (recipe.name.toLowerCase().includes(search)) {
-            return true;
-        }
-
-        if (recipe.description.toLowerCase().includes(search)) {
-            return true;
-        }
-
-        // console.log(recipe.ingredients);
-        for (let j = 0; j < recipe.ingredients.length; j++) {
-            let ingredient = recipe.ingredients[j].ingredient.toLowerCase();
-            // console.log(ingredient, search, ingredient.includes(search));
-            if (ingredient.includes(search)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
 
 export default list;
