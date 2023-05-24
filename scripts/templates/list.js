@@ -47,7 +47,7 @@ class list {
         if (search.length >= 3) {
             console.group(search);
             console.time();
-            this.filtered = this.searchAlt(search); //
+            this.filtered = this.search(search); //
             console.timeEnd();
             console.groupEnd(search);
         }
@@ -74,32 +74,17 @@ class list {
     }
 
     // Méthode 1 qui vérifie si le nom de la recette, la description ou un ingrédient est contenu dans la recherche
-    // search(search) {
-    //     return this.filtered.filter((recipe) => {
-    //         return (
-    //             recipe.name.toLowerCase().includes(search) ||
-    //             recipe.description.toLowerCase().includes(search) ||
-    //             recipe.ingredients.find((ingredient) => ingredient.ingredient.toLowerCase().includes(search))
-    //         )
-    //     })
+    search(search) {
+        return this.filtered.filter((recipe) => {
+            return (
+                recipe.name.toLowerCase().includes(search) ||
+                recipe.description.toLowerCase().includes(search) ||
+                recipe.ingredients.find((ingredient) => ingredient.ingredient.toLowerCase().includes(search))
+            )
+        })
 
-    // }
-
-    // Méthode 2  pour la recherche principale avec la boucle for pour itérer sur les recettes filtrées
-    searchAlt(search) {
-
-        let final = [];
-
-        for (let i = 0; i < this.filtered.length; i++) {
-            // console.log(i);
-            let recipe = this.filtered[i];
-            if (this.match(recipe, search)) {
-                final.push(recipe);
-            }
-        }
-
-        return final;
     }
+
 
     match(recipe, search) {
         if (recipe.name.toLowerCase().includes(search)) {

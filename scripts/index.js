@@ -8,8 +8,8 @@ const list = new List();
 list.hydrate(recipes);
 list.display(list.all);
 list.listenForSearch();
-// list.search(); // Si méthode 1 
-list.searchAlt(); // Si méthode 2
+list.search(); // Si méthode 1 (branche algorytme-1)
+// list.searchAlt(); // Si méthode 2 (branche algorytme-2)
 
 list.addFilter(new IngredientFilter(list));
 list.addFilter(new ApplianceFilter(list));
